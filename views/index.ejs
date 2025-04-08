@@ -1,0 +1,84 @@
+<%- include ('partials/header.ejs') -%>
+
+<body>
+    <form class="userForm" action="/user" method="GET">
+        <% users.forEach(function(user) { %>
+            <div class="tab-view-item">
+                <button type="submit" id="<%= user.name %>" name="userId" value="<%= user.id %>" required>
+                <label for="<%= user.name %>"><%= user.name %></label>
+                </button>
+            </div>
+            <% }) %>
+          
+            <button type="submit" name="userId" value="addUser" id="addUser" >
+        <label for="tab">New User</label>
+        </button>
+      </form>
+  
+       
+    
+        <h1 class="homePage"> BOOKS BLOG </h1>
+        <h2>Welcome to the Book Review's App</h2>
+        <p>Here you can search for books and add your reviews.</p>
+
+    
+
+    <h2>Search for a Book</h2>
+    
+  <form class="searchBook" action="/books" method="get">
+    <input type="text"  name="books" placeholder="search for a book" >
+    <button type="submit">Search</button>
+    </form>
+
+    <% if (route==='books') { %>
+ 
+    <% if (books.length > 0) { %> 
+    <h2>Choose a Book</h2>
+    
+    <ul>
+        <form action="addBook" method="POST">
+        <% for (let i = 0; i < books.length; i++) { %>
+        <li class="book-list-item bookDisplay">
+            <input type="checkbox" name="addBook" value="<%= books[i].title %>,<%= books[i].cover_edition_key %>,<%= books[i].author_name %>"> 
+            <strong>Título:</strong> <%= books[i].title %> - <strong>Autor:</strong> <%= books[i].author_name  %> -
+            </br><img src="https://covers.openlibrary.org/b/olid/<%= books[i].cover_edition_key %>-M.jpg" />
+            </br>
+            <button type="submit">Add</button>
+        </li>
+        
+        <% } %>
+        
+    </ul>
+    <% } else { %>
+        <p>No books found</p>
+    </form> 
+    <% } %>
+    <% } else if (route === 'user') { %>
+        <ul>
+        <form action="/deleteBook" method="POST">
+            <% for (let i = 0; i < books.length; i++) { %>
+           
+            <li class="book-list-item">
+                <input type="checkbox" name="deleteBook" value="<%= books[i].title %>,<%= books[i].cover %>,<%= books[i].author %>"> 
+                <strong>Título:</strong> <%= books[i].title %> - <strong>Autor:</strong> <%= books[i].author %> -
+                </br><img src="https://covers.openlibrary.org/b/olid/<%= books[i].cover %>-M.jpg" />
+                </br>
+                <h2>Reviews:</h2>
+                <p><%= books[i].notes %></p>
+                <button type="submit">Delete</button>
+            </li>
+            
+            <% } %>
+            <% } else { %>
+                <p>Choose your user to Start</p>
+            <% } %>
+       
+        </form>
+            
+        </ul>
+        
+    
+
+  
+</body>
+</html>

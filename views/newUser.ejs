@@ -1,0 +1,12 @@
+<%- include ('partials/header.ejs') -%>
+
+<form action="/addUser" method="POST">
+    <h1>New User</h1>
+    <label for="name">Name:</label><br>
+    <input type="text" id="name" name="name" required><br><br>
+    <label for="secondName">Second name:</label><br>
+    <input type="text" id="secondName" name="secondName" required><br><br>
+    <button type="submit">Create User</button>
+</form>
+
+<p><a href="/">Back to Home</a></p>
